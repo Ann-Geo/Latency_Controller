@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package testc;
+option go_package="testcpb";
+
+
+message LatencyMeasured{
+    string current_lat = 1;
+}
+
+message CustomImage {
+    bytes image = 1;
+    string timestamp = 2;
+    string acheived_acc = 3;
+}
+
+
+message Targets {
+    string target_lat = 1;
+    string target_acc = 2;
+}
+
+message Status {
+    bool status = 1;
+}
+
+service TestController {
+    rpc Subscribe(Targets) returns (stream CustomImage) {};
+    rpc SubscribeWithControl(Targets) returns (stream CustomImage) {};
+    rpc LatencyCalc(LatencyMeasured) returns (Status) {};
+}

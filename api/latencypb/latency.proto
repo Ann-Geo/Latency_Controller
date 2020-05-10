@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package latency;
+option go_package="latencypb";
+
+message ImageData {
+    bytes image = 1;
+    string timestamp = 2;
+}
+
+
+
+message Response {
+    bool status = 1;
+}
+
+service MeasureService{
+ 
+    rpc SendAndMeasure(stream ImageData) returns (Response) {}; //for test node
+    rpc SendImage(stream ImageData) returns (Response) {}; //for peer nodes
+}
